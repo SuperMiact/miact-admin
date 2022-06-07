@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>cn.miact</groupId>
-    <artifactId>miact-admin</artifactId>
+    <artifactId>miact_admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>miact-admin</name>
     <description>miact-admin</description>
