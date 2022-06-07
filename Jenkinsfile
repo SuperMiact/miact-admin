@@ -59,7 +59,6 @@ pipeline {
                 echo 'pull image and docker run'
                 withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
                     sh '''
-                        sudo docker login --username=yourusername --password=yourpassword ccr.ccs.tencentyun.com
                         sudo docker pull ${IMAGE_ADDR}:${VERSION_ID}
 
                         container_id=`docker ps|grep ${IMAGE_ADDR}:${VERSION_ID}|awk '{print $1}'`
