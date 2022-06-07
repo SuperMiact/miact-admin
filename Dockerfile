@@ -1,7 +1,6 @@
  ## 基础镜像java
  FROM java:8
- ## 作者是drgaon
- MAINTAINER dragon
+ MAINTAINER miact
  ## 就是你上传的jar包的名称。给jar包起个别名
  ADD target/miact-admin-0.0.1-SNAPSHOT.jar miact-admin.jar
  ## 就是在容器中以多少端口号运行
