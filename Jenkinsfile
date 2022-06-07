@@ -4,11 +4,11 @@ pipeline {
         maven 'maven'
     }
     environment {
-        GIT_PROJECT_ADDR="git@gitee.com:uncleqiao/springboot-test.git" //项目的git地址
+        GIT_PROJECT_ADDR="git@gitee.com:miact/miact-admin.git" //项目的git地址
         JENKINS_WORKSPACE="/root/.jenkins/workspace"    //jenkins存放文件的地址
         PROJECT_NAME="${JOB_NAME}"  			        // 项目名
-        JAR_NAME="sample-tezst-0.0.1-SNAPSHOT.jar"   // 项目生成的jar的名字
-        IMAGE_NAME="sample-tezst"                    // 镜像名一般和项目名相同
+        JAR_NAME="miact-admin-0.0.1-SNAPSHOT.jar"   // 项目生成的jar的名字
+        IMAGE_NAME="miact-admin"                    // 镜像名一般和项目名相同
         IMAGE_ADDR="repository/qiao_namespace/${IMAGE_NAME}"    // 镜像的位置
         VERSION_ID="${BUILD_ID}"
     }
