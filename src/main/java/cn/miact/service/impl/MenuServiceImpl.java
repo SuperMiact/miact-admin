@@ -1,8 +1,8 @@
 package cn.miact.service.impl;
 
-import cn.miact.mapper.MainMenuMapper;
-import cn.miact.domain.entity.MainMenuDO;
-import cn.miact.service.MainMenuService;
+import cn.miact.mapper.MenuMapper;
+import cn.miact.domain.entity.MenuDO;
+import cn.miact.service.MenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
  * @Description :
  */
 @Service
-public class MainMenuServiceImpl extends ServiceImpl<MainMenuMapper, MainMenuDO> implements MainMenuService {
+public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuDO> implements MenuService {
 
     @Override
-    public List<MainMenuDO> getMenu(){
-        List<MainMenuDO> allMenu = baseMapper.selectList(null);//查出全部菜单
+    public List<MenuDO> getMenu(){
+        List<MenuDO> allMenu = baseMapper.selectList(null);//查出全部菜单
         return allMenu.stream()
                 .filter(item -> Objects.equals(item.getPid(),0))
                 .map(item -> item.setChildNode(getChild(item.getId(), allMenu)))
@@ -30,7 +30,7 @@ public class MainMenuServiceImpl extends ServiceImpl<MainMenuMapper, MainMenuDO>
                 .collect(Collectors.toList());
     }
 
-    private List<MainMenuDO> getChild(Integer id, List<MainMenuDO> allMenu) {
+    private List<MenuDO> getChild(Integer id, List<MenuDO> allMenu) {
         return allMenu.stream()
                 .filter(item -> Objects.equals(item.getPid(), id))
                 .map(item -> item.setChildNode(getChild(item.getId(), allMenu)))
@@ -39,16 +39,16 @@ public class MainMenuServiceImpl extends ServiceImpl<MainMenuMapper, MainMenuDO>
     }
 
 
-    public int addMenu(MainMenuDO mainMenuDO){
-        return baseMapper.insert(mainMenuDO);
+    public int addMenu(MenuDO menuDO){
+        return baseMapper.insert(menuDO);
     }
 
-    public int updateMenu(MainMenuDO mainMenuDO){
-        return baseMapper.updateById(mainMenuDO);
+    public int updateMenu(MenuDO menuDO){
+        return baseMapper.updateById(menuDO);
     }
 
-    public int delMenu(MainMenuDO mainMenuDO){
-        return baseMapper.deleteById(mainMenuDO);
+    public int delMenu(MenuDO menuDO){
+        return baseMapper.deleteById(menuDO);
     }
 
 

@@ -1,6 +1,6 @@
 package cn.miact.mapper;
 
-import cn.miact.domain.entity.MainMenuDO;
+import cn.miact.domain.entity.MenuDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @Description :
  */
 @Mapper
-public interface MainMenuMapper extends BaseMapper<MainMenuDO> {
+public interface MenuMapper extends BaseMapper<MenuDO> {
 }

@@ -21,7 +21,7 @@ import java.util.List;
 @Setter
 @TableName("tb_main_menu")
 @Accessors(chain = true)
-public class MainMenuDO implements Serializable {
+public class MenuDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,5 +34,5 @@ public class MainMenuDO implements Serializable {
     private Integer sortOrder;
     private Integer status;
     @TableField(exist = false)
-    private List<MainMenuDO> childNode;
+    private List<MenuDO> childNode;
 }

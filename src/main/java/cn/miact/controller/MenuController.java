@@ -1,7 +1,7 @@
 package cn.miact.controller;
 
-import cn.miact.domain.entity.MainMenuDO;
-import cn.miact.service.MainMenuService;
+import cn.miact.domain.entity.MenuDO;
+import cn.miact.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,29 +17,29 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/mainMenu")
-public class MainMenuController {
+public class MenuController {
 
     @Autowired
-    private MainMenuService mainMenuService;
+    private MenuService menuService;
 
     @RequestMapping("/getMenu")
-    public List<MainMenuDO> getMenu(){
-        return mainMenuService.getMenu();
+    public List<MenuDO> getMenu(){
+        return menuService.getMenu();
     }
 
     @RequestMapping("/addMenu")
-    public int addMenu(@RequestBody MainMenuDO mainMenuDO){
-        return mainMenuService.addMenu(mainMenuDO);
+    public int addMenu(@RequestBody MenuDO menuDO){
+        return menuService.addMenu(menuDO);
     }
 
     @RequestMapping("/updateMenu")
-    public int updateMenu(@RequestBody MainMenuDO mainMenuDO){
-        return mainMenuService.updateMenu(mainMenuDO);
+    public int updateMenu(@RequestBody MenuDO menuDO){
+        return menuService.updateMenu(menuDO);
     }
 
     @RequestMapping("/delMenu")
-    public int delMenu(@RequestBody MainMenuDO mainMenuDO){
-        return mainMenuService.delMenu(mainMenuDO);
+    public int delMenu(@RequestBody MenuDO menuDO){
+        return menuService.delMenu(menuDO);
     }
 
 }
