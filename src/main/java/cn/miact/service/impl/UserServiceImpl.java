@@ -8,6 +8,7 @@ import cn.miact.domain.entity.UserDO;
 import cn.miact.mapper.UserMapper;
 import cn.miact.service.UserService;
 import cn.miact.util.ValidatorUtils;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -59,26 +60,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO queryLoginUser(UserQueryDTO queryLogin) {
-
-        ValidatorUtils.validate(queryLogin);
-
-        UserDO query = new UserDO();
-        BeanUtils.copyProperties(queryLogin,query);
-
-        QueryWrapper queryWrapper = new QueryWrapper(query);
-
-        UserDO userDO = userMapper.selectOne(queryWrapper);
-
-
-        UserDTO userDTO = null;
-
-        if (userDO!=null){
-            userDTO = new UserDTO();
-            BeanUtils.copyProperties(userDO,userDTO);
-        }
-
-        return userDTO;
+    public UserDO findByUsername(String username) {
+        return userMapper.selectOne(new QueryWrapper<UserDO>().eq("username",username));
     }
 
     @Override

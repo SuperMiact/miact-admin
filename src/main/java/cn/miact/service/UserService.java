@@ -6,6 +6,7 @@ import cn.miact.domain.common.PageQuery;
 import cn.miact.domain.common.PageResult;
 import cn.miact.domain.dto.UserDTO;
 import cn.miact.domain.dto.UserQueryDTO;
+import cn.miact.domain.entity.UserDO;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public interface UserService {
      */
     int delete(Long id);
 
-    UserDTO queryLoginUser(UserQueryDTO loginQuery);
+    UserDO findByUsername(String username);
 
     /**
      * 分页查询

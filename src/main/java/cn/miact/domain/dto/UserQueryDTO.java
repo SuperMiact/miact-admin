@@ -1,6 +1,7 @@
 package cn.miact.domain.dto;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * 数据查询DTO实体
  */
 @Data
+@Accessors(chain = true)
 public class UserQueryDTO implements Serializable {
 
     /**

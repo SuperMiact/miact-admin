@@ -6,12 +6,15 @@ import cn.miact.domain.common.PageResult;
 import cn.miact.domain.common.ResponseResult;
 import cn.miact.domain.dto.UserDTO;
 import cn.miact.domain.dto.UserQueryDTO;
+import cn.miact.domain.entity.UserDO;
 import cn.miact.exception.ErrorCodeEnum;
 import cn.miact.domain.vo.UserVO;
 import cn.miact.service.ExcelExportService;
 import cn.miact.service.UserService;
 import cn.miact.util.InsertValidationGroup;
+import cn.miact.util.TokenGenerator;
 import cn.miact.util.UpdateValidationGroup;
+import cn.miact.util.RedisUtils;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -22,6 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +48,9 @@ public class UserController {
 
     @Autowired
     private ExcelExportService excelExportService;
+
+    @Resource
+    private RedisUtils redisUtils;
 
     /**
      * POST /api/users  UserDTO传输类来包装我们额请求信息
@@ -180,24 +187,32 @@ public class UserController {
         return ResponseResult.success(result);
     }
 
+    @RequestMapping("/login")
+    @ApiOperation(value = "登录",notes = "登录")
+    public ResponseResult login(@RequestBody UserQueryDTO param)  {
 
+        UserDO user = userService.findByUsername(param.getUsername());
+        String password = param.getPassword();
 
-    @RequestMapping("/queryLoginUser")
-    public ResponseResult queryLoginUser(@RequestBody UserQueryDTO query)  {
-
-        UserDTO user = userService.queryLoginUser(query);
-
-        if (user != null){
-            return ResponseResult.success(user,"登录成功！");
-        }else {
-            return ResponseResult.failure("202","登录失败");
+        if (user == null){
+            return ResponseResult.failure("账号错误");
         }
+
+        if (!password.equals(user.getPassword())){
+            return ResponseResult.failure("密码错误");
+        }
+
+        String token = TokenGenerator.generateValue();
+        redisUtils.set("SYS_USER" + token, param.getUsername(), (long) (3600 * 8));
+        return ResponseResult.success(token,"登录成功！");
     }
 
-
-
-
-
+    @GetMapping(value = "/logout")
+    @ApiOperation(value = "退出", notes = "退出")
+    public ResponseResult logout(@RequestParam("token") String token) {
+        redisUtils.remove("SYS_USER" + token);
+        return ResponseResult.success(null,"登出成功！");
+    }
 
     /**
      * 用户数据导出

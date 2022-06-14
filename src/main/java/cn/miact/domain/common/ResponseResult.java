@@ -60,42 +60,53 @@ public class ResponseResult<T> implements Serializable {
     @ApiModelProperty(
             value = "泛型结果T"
     )
-    private T result;
+    private T results;
 
     /**
      * 成功
-     * @param result
+     * @param results
      * @param <T>
      * @return
      */
-    public static <T> ResponseResult<T> success(T result){
+    public static <T> ResponseResult<T> success(T results){
         ResponseResult<T> responseResult = new ResponseResult<>();
 
         responseResult.setCode("200");
         responseResult.setSuccess(Boolean.TRUE);
-        responseResult.setResult(result);
+        responseResult.setResults(results);
 
         return responseResult;
     }
 
     /**
      * 成功
-     * @param result
+     * @param results
      * @param <T>
      * @param message
      * @return
      */
-    public static <T> ResponseResult<T> success(T result,String message){
+    public static <T> ResponseResult<T> success(T results,String message){
         ResponseResult<T> responseResult = new ResponseResult<>();
 
         responseResult.setCode("200");
         responseResult.setSuccess(Boolean.TRUE);
-        responseResult.setResult(result);
+        responseResult.setResults(results);
         responseResult.setMessage(message);
 
         return responseResult;
     }
 
+    /**
+     * 失败
+     */
+    public static <T> ResponseResult<T> failure(String message){
+        ResponseResult<T> responseResult = new ResponseResult<>();
+
+        responseResult.setSuccess(Boolean.FALSE);
+        responseResult.setMessage(message);
+
+        return responseResult;
+    }
 
     /**
      * 失败
