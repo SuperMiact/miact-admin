@@ -2,6 +2,7 @@ package cn.miact.filter;
 
 import cn.miact.config.AuthToken;
 import cn.miact.domain.common.ResponseResult;
+import cn.miact.exception.ErrorCodeEnum;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.gson.Gson;
 import org.apache.shiro.authc.AuthenticationException;
@@ -51,7 +52,7 @@ public class AuthFilter extends AuthenticatingFilter {
             httpServletResponse.setHeader("Access-Control-Allow-Origin", httpServletRequest.getHeader("Origin"));
             httpServletResponse.setCharacterEncoding("UTF-8");
             httpServletResponse.setHeader("Content-Type", "application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write(gson.toJson(ResponseResult.failure("请先登录")));
+            httpServletResponse.getWriter().write(gson.toJson(ResponseResult.failure(ErrorCodeEnum.SYS_USER_NEED_LOGIN_ERROR)));
             return false;
         }
         return executeLogin(request, response);
@@ -68,7 +69,7 @@ public class AuthFilter extends AuthenticatingFilter {
         httpResponse.setCharacterEncoding("UTF-8");
         try {
             Throwable throwable = e.getCause() == null ? e : e.getCause();
-            httpResponse.getWriter().write(gson.toJson(gson.toJson(ResponseResult.failure("登录凭证已失效，请重新登录"))));
+            httpResponse.getWriter().write(gson.toJson(gson.toJson(ResponseResult.failure(ErrorCodeEnum.SYS_USER_TOKEN_FAILURE_ERROR))));
         } catch (IOException e1) {
             e1.printStackTrace();
         }

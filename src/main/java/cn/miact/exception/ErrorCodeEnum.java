@@ -21,6 +21,8 @@ public enum ErrorCodeEnum {
     // 2*** 系统异常
     SYSTEM_ERROR("2001","服务异常"),
     UNKNOWN_ERROR("2002","未知异常"),
+    SYS_USER_NEED_LOGIN_ERROR("2003","请先登录"),
+    SYS_USER_TOKEN_FAILURE_ERROR("2004","登录凭证已失效，请重新登录"),
 
     // 3*** 业务异常
     XXX("3001","业务异常"),
